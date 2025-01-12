@@ -11,3 +11,13 @@ public class MasterApplication {
 	}
 
 }
+
+
+
+/*
+
+TODO: SIGN UP
+TODO: JSON
+
+
+ */
