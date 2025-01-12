@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.Set;
-
 public class SignupRequest {
     @NotBlank
     @Email
@@ -17,7 +16,7 @@ public class SignupRequest {
 
     private Set<String> roles;
 
-    // Getters and Setters
+    // Getter ve Setter'lar
     public String getEmail() {
         return email;
     }

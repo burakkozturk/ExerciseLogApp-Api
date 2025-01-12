@@ -3,12 +3,15 @@ package exercise.logger.app.master.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
+
+    // Auth Fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,9 +28,20 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
+    public User(Long id, String email, String password, Set<Role> roles, LocalDateTime createdAt) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.createdAt = createdAt;
+    }
 
-    // Getters and Setters
+    public User() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -60,12 +74,18 @@ public class User {
         this.roles = roles;
     }
 
-    // Constructors
-    public User() {
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+        this.createdAt = LocalDateTime.now();
     }
+
 }
