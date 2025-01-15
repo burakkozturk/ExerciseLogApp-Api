@@ -3,9 +3,11 @@ package exercise.logger.app.master.controller;
 
 import exercise.logger.app.master.entity.*;
 import exercise.logger.app.master.service.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +29,19 @@ public class WorkoutSessionController {
     @GetMapping("/{id}")
     public ResponseEntity<WorkoutSession> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(service.findById(id));
+    }
+
+    @GetMapping("/by-date")
+    public ResponseEntity<List<WorkoutSession>> getByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return ResponseEntity.ok(service.findByDate(date));
+    }
+
+
+    @GetMapping("/by-date-range")
+    public ResponseEntity<List<WorkoutSession>> getByDateRange(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return ResponseEntity.ok(service.findByDateRange(startDate, endDate));
     }
 
     @PostMapping

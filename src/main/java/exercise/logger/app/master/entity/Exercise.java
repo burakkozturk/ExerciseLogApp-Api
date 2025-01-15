@@ -1,5 +1,7 @@
 package exercise.logger.app.master.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import exercise.logger.app.master.entity.Sets;
@@ -22,9 +24,7 @@ public class Exercise {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "workout_session_id", nullable = false)
-    private WorkoutSession workoutSession;
+
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -38,7 +38,13 @@ public class Exercise {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "workout_session_id", nullable = false)
+    @JsonBackReference
+    private WorkoutSession workoutSession;
+
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Sets> sets = new ArrayList<>();
 
 

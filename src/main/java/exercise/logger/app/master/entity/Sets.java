@@ -1,5 +1,6 @@
 package exercise.logger.app.master.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,8 +20,9 @@ public class Sets {
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id", nullable = false)
+    @JsonBackReference
     private Exercise exercise;
 
     @Column(name = "weight", precision = 10, scale = 2)

@@ -1,5 +1,6 @@
 package exercise.logger.app.master.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public class WorkoutSession {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "workoutSession", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Exercise> exercises = new ArrayList<>();
 
 

@@ -6,6 +6,7 @@ import exercise.logger.app.master.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +26,15 @@ public class WorkoutSessionService {
 
     public WorkoutSession findById(UUID id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("WorkoutSession not found"));
+    }
+
+    public List<WorkoutSession> findByDate(LocalDate date) {
+        return repository.findByDate(date);
+    }
+
+    // Opsiyonel: Tarih aralığına göre arama
+    public List<WorkoutSession> findByDateRange(LocalDate startDate, LocalDate endDate) {
+        return repository.findByDateBetween(startDate, endDate);
     }
 
     public WorkoutSession save(WorkoutSession session) {
